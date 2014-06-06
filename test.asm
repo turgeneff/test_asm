@@ -63,9 +63,17 @@ start:
     and ecx,dword ptr es:[esp][ecx]
     and al,es:[edi + esi]
     and ebx,ds:[ebx + esi]
-    and bx,fs : [ ebx + esi ]
-    and bx,gs : [ ecx + edi ]
+    and ebx,fs : [ ebx + esi ]
+    and edi,gs : [ ecx + edi ]
     and ecx,gs : [ eax + eax ]
+    
+    mov byte ptr fs:[ecx + edi],al
+    mov  cs : [edi + esi], ebx
+    mov gs:[edx + esi],cl
+    mov ds : [ ebx + ebp ] , esi
+    mov ss : [ eax + edx ] , ecx 
+    mov gs : [ esi + esi ] , esi
+    
     
     
     ; add al,dl
