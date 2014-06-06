@@ -26,9 +26,23 @@ start:
     ; mov ax,data
     ; mov ds,ax
     
+    clc 
+    
+    
+    
+    
+    clc
+    
+    
+lable1: jmp lable1
+    
+    
+    jmp end_l
+    clc 
     
     ; mov ax,4c00h 
 	; int 21h
+end_l:
     
 code ends 
     end start
