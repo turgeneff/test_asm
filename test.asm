@@ -6,8 +6,6 @@ data segment
     id1 db 0h
     id2 db 06h
     
-    id3 dw 0ah
-    
     ; org 100h
     id4 dd 0fffh
     
@@ -23,8 +21,6 @@ code segment
         assume cs:code , ds:data
 start:
 
-    ; mov ax,data
-    ; mov ds,ax
     jmp end_l
     jnbe end_l
     clc
@@ -61,6 +57,7 @@ start:
     mul dword ptr fs : [ esp + ebx ]
     mul byte ptr ds : [ ebx + ebp ] 
     mul dword ptr gs : [ esi + esi ]
+    mul byte ptr ds : [ esp + edx ]
   skip_mul:
   
   rep_1:
@@ -79,7 +76,26 @@ start:
     mov ss : [ eax + edx ] , ecx 
     mov gs : [ esi + esi ] , esi
     
+     
+    ; mov edi , 4h
+    ; mov al , 0h
+    ; mov ebx , 15h
+    ; mov cl, 0efh
+    ; mov esi, 1ffh
+    ; mov ecx, 0efffabc2h
+    ; mov esi, 2515fecah
+    ; mov bh , 1h
+    ; mov ch , 080h
     
+    mov dword ptr es : [ ecx + ecx ] , 4h
+    mov byte ptr fs:[ecx + edi], 0h
+    mov dword ptr cs : [edi + esi], 15h
+    mov byte  ptr gs: [edx + esi] , 0efh
+    mov dword ptr ds : [ ebx + ebp ] , 1ffh
+    mov dword ptr ss : [ eax + edx ] , 0efffabc2h 
+    mov dword ptr gs : [ esi + esi ] , 2515fecah
+    mov byte ptr ds : [ ebx + eax ], 1h
+    mov byte ptr gs : [ esi + edi ] , 080h
     
     ; add al,dl
     
@@ -105,9 +121,6 @@ end_l:
     jmp af_inf_l
     jnbe start
     jmp start 
-    ; mov ax,4c00h 
-	; int 21h
-
     
 code ends 
     end start
