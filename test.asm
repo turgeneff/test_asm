@@ -60,6 +60,14 @@ start:
     mul dword ptr gs : [ esi + esi ]
   skip_mul:
     
+    and ecx,dword ptr es:[esp][ecx]
+    and al,es:[edi + esi]
+    and ebx,ds:[ebx + esi]
+    and bx,fs : [ ebx + esi ]
+    and bx,gs : [ ecx + edi ]
+    and ecx,gs : [ eax + eax ]
+    
+    
     ; add al,dl
     
     ; add eax,edx
