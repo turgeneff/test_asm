@@ -1,5 +1,5 @@
 
-; .386
+.386
 
 data segment
     ; org 100h
@@ -20,19 +20,22 @@ data ends
 
 
 code segment
-        ; assume cs:code , ds:data
+        assume cs:code , ds:data
 start:
 
     ; mov ax,data
     ; mov ds,ax
-    
+    jmp end_l
+    jnbe end_l
     clc
     
+    jmp div_skip
     div al
     div ah
     div bl
     div dl
     div dh
+  div_skip:
     
     div ecx
     div edx
@@ -59,13 +62,15 @@ start:
     mul byte ptr ds : [ ebx + ebp ] 
     mul dword ptr gs : [ esi + esi ]
   skip_mul:
-    
+  
+  rep_1:
     and ecx,dword ptr es:[esp][ecx]
     and al,es:[edi + esi]
     and ebx,ds:[ebx + esi]
     and ebx,fs : [ ebx + esi ]
     and edi,gs : [ ecx + edi ]
     and ecx,gs : [ eax + eax ]
+    jnbe rep_1
     
     mov byte ptr fs:[ecx + edi],al
     mov  cs : [edi + esi], ebx
@@ -84,19 +89,25 @@ start:
     
     
     
-    
+    jmp af_inf_l
     clc
     
     
 lable1: jmp lable1
+  af_inf_l:
     
     
-    jmp end_l
+    
     clc 
     
+        
+end_l:
+    jmp af_inf_l
+    jnbe start
+    jmp start 
     ; mov ax,4c00h 
 	; int 21h
-end_l:
+
     
 code ends 
     end start
