@@ -2,13 +2,11 @@
 .386
 
 data segment
-    ; org 100h
+    org 0f0h
     id1 db 0h
     id2 db 06h
-    
-    ; org 100h
+    org 0effh
     id4 dd 0fffh
-    
     var1 dd 0feabch
     var2 db 0fh
     var3 dd 010h
@@ -19,6 +17,8 @@ data ends
 
 code segment
         assume cs:code , ds:data
+        
+    org 100h
 start:
 
     jmp end_l
@@ -97,13 +97,16 @@ start:
     mov byte ptr ds : [ ebx + eax ], 1h
     mov byte ptr gs : [ esi + edi ] , 080h
     
-    ; add al,dl
-    
-    ; add eax,edx
-    ; add eax,esi
-    ; add ebx,edi
-    
-    
+    add al,dl
+    add bh,cl
+    add cl,cl
+    add bl,dh
+    add eax,edx
+    add eax,esi
+    add ebx,edi
+    add edi,esi
+    add esp,eax
+        
     
     jmp af_inf_l
     clc
@@ -111,8 +114,6 @@ start:
     
 lable1: jmp lable1
   af_inf_l:
-    
-    
     
     clc 
     
