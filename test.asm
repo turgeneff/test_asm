@@ -6,7 +6,7 @@ data segment
     id1 db 0h
     id2 db 06h
     
-    ; id3 dw 0ah
+    id3 dw 0ah
     
     ; org 100h
     id4 dd 0fffh
@@ -26,7 +26,45 @@ start:
     ; mov ax,data
     ; mov ds,ax
     
-    clc 
+    clc
+    
+    div al
+    div ah
+    div bl
+    div dl
+    div dh
+    
+    div ecx
+    div edx
+    div ebx
+    div esi
+    div edi
+    div ecx
+    div esp
+    div ebp
+    
+    jnbe skip_mul
+    mul byte ptr fs : [ ecx + ebx ]
+    mul dword ptr gs : [ esi + esi ]
+    mul byte ptr es : [ esi + edi ]
+    mul dword ptr  ds : [ ebx + ecx ] 
+    mul dword ptr ss : [ eax + edx ]
+    mul byte ptr fs : [ ecx + esi ]
+    mul byte ptr gs : [ edi + edi ] 
+    mul dword ptr gs : [ esi + esi ]
+    mul dword ptr fs : [ esi + ebx ]
+    mul byte ptr es : [ ebx + ecx ] 
+    mul dword ptr gs : [ esi + esi ]
+    mul dword ptr fs : [ esp + ebx ]
+    mul byte ptr ds : [ ebx + ebp ] 
+    mul dword ptr gs : [ esi + esi ]
+  skip_mul:
+    
+    ; add al,dl
+    
+    ; add eax,edx
+    ; add eax,esi
+    ; add ebx,edi
     
     
     
