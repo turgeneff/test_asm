@@ -3,23 +3,29 @@
 
 data segment
     org 0f0h
-    id1 db 0h
-    id2 db 06h
+    id1 db -0h
+    id2 db -06h
     org 0effh
     id4 dd 0fffh
     var1 dd 0feabch
-    var2 db 0fh
-    var3 dd 010h
-    var4 db 0h
+    var2 db -0fh
+    var3 dd +010h
+    var4 db 0h   
     
+    str0 db 'ABC'
+    str1 db 'abc'
+    str2 db '  ;  asf '
+    str3 db ',asf mov eax,esi'
 data ends
 
 
 code segment
         assume cs:code , ds:data
-        
-    org 100h
+    
 start:
+    jmp illusion
+    org 0ffffh
+  illusion:
 
     jmp end_l
     jnbe end_l
@@ -75,17 +81,16 @@ start:
     mov ds : [ ebx + ebp ] , esi
     mov ss : [ eax + edx ] , ecx 
     mov gs : [ esi + esi ] , esi
-    
-     
-    ; mov edi , 4h
-    ; mov al , 0h
-    ; mov ebx , 15h
-    ; mov cl, 0efh
-    ; mov esi, 1ffh
-    ; mov ecx, 0efffabc2h
-    ; mov esi, 2515fecah
-    ; mov bh , 1h
-    ; mov ch , 080h
+            
+    mov edi , 4h
+    mov al , 0h
+    mov ebx , 15h
+    mov cl, 0efh
+    mov esi, 1ffh
+    mov ecx, 0efffabc2h
+    mov esi, 2515fecah
+    mov bh , 1h
+    mov ch , 080h
     
     mov dword ptr es : [ ecx + ecx ] , 4h
     mov byte ptr fs:[ecx + edi], 0h
